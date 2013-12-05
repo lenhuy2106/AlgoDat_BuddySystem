@@ -1,0 +1,27 @@
+#ifndef FREELIST_H
+#define FREELIST_H
+#include "heap.h"
+
+class FreeList : public Heap {
+
+private:
+    POSITION start;
+    int len;
+
+public:
+    FreeList (int n);
+    inline bool Empty () { return (len == 0); }
+    inline POSITION First () { return start; }
+    POSITION Next (POSITION i);
+    POSITION LAST (void);
+    POSITION Prior (POSITION i);
+    bool ok (POSITION i);
+    ATOM Retrieve (POSITION i) { return GetVal (i); }
+    void InsertAfter (ATOM newAtom, POSITION i);
+    void DeletePos (POSITION i);
+    void Update (ATOM neu, POSITION i) {
+        if (ok (i)) SetVal (i, neu);
+    }
+};
+
+#endif // FREELIST_H

@@ -1,0 +1,8 @@
+#include "freelist.h"
+
+typedef int POSITION;
+
+FreeList::FreeList () {
+
+
+}
