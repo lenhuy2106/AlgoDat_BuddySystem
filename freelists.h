@@ -1,6 +1,9 @@
 #ifndef FREELISTS_H
 #define FREELISTS_H
+
+#include <vector>
 #include "heap.h"
+using namespace std;
 
 class FreeLists : public Heap {
 
