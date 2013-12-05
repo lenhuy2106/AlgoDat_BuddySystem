@@ -3,6 +3,9 @@
 #include <iostream>
 using namespace std;
 
+void printOptions();
+void doAction(char action);
+
 BuddySystem* buddySystem = new BuddySystem(7);
 
 int main(int argc, const char* argv[])
