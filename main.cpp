@@ -11,15 +11,15 @@ void doAction(char action);
 Heap* heap = new Heap(M);
 BuddySystem* buddySystem = new BuddySystem(heap);
 
-int main(int argc, const char* argv[])
+int main()
 {
-	/* TODO: fix
-	buddySystem->fListsVec[2].size();
+    /* TODO: fix
+    buddySystem->fListsVec[2].size();
 
     for (int i = 0; i < buddySystem->heapVec.size (); i++) {
         cout << buddySystem->heapVec[i] << endl;
-	}
-	*/
+    }
+    */
 
     char action;
     do {
@@ -28,28 +28,28 @@ int main(int argc, const char* argv[])
         cin >> action;
         doAction(action);
     } while (action != 'q');
-    
+
     return 0;
 }
 
 void printOptions() {
     cout << "Options:" << endl;
     cout << "(a)llocate" << endl;
-	cout << "(n)ew memory" << endl;
-	cout << "(d)ispose memory" << endl;
+    cout << "(n)ew memory" << endl;
+    cout << "(d)ispose memory" << endl;
     cout << "(q)uit" << endl;
 }
 
 void doAction(char action) {
     switch (action) {
         case 'a':
-			// TODO
+            // TODO
             break;
         case 'n':
-			// TODO
+            // TODO
             break;
         case 'd':
-			// TODO
+            // TODO
             break;
     }
 }
