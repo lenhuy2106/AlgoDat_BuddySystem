@@ -2,6 +2,9 @@
 #define HEAP_H
 
 #define PSEUDO -1
+#define OFFSET_RESERVED 0
+#define OFFSET_SIZE 1
+#define OFFSET_NEXT 2
 
 typedef int POSITION;
 typedef int ATOM;
@@ -10,11 +13,14 @@ class Heap {
 private:
 	int m;
 	int length;
-	int* data;
+    int* data;
 public:
     Heap(int m);
 	int getM();
-	int getLength();
+    int powToLength(int k);
+    int getLength();
+    void setBlock(int res, int k, int val);
+
     inline void SetVal(POSITION p, ATOM val);
     inline int GetVal(POSITION p);
 };

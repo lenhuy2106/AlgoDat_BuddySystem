@@ -7,31 +7,36 @@ FreeLists::FreeLists(Heap* heap) {
 
 	// Set all free lists to an empty state (except the last)
 	for (int i = 0; i < heap->getM(); i++) {
-		lists[i] = NO_FREE_LIST;
+        lists[i] = PSEUDO;
 	}
 
 	// Initial free block for the whole heap
-	heap->SetVal(0 + OFFSET_RESERVED, 0);
-	heap->SetVal(0 + OFFSET_SIZE, 2 ^ heap->getM());
-	heap->SetVal(0 + OFFSET_NEXT, NO_FREE_LIST);
+    heap->setBlock(0,heap->getM(),PSEUDO);
 	lists[heap->getM()] = 0;
 }
 
 void FreeLists::AddToFree(POSITION position, int k) {
-	// TODO: Check if we have enough free space.
-	// TODO: Align position?
 
-	heap->SetVal(position + OFFSET_RESERVED, 0);
-	heap->SetVal(position + OFFSET_SIZE, 2 ^ k);
-	heap->SetVal(position + OFFSET_NEXT, lists[k]);
-	lists[k] = position;
+    try {
+        // Checking free space in freelists
+        for (int i = 0; i <= size; i++) {
+            if (i >= position || i <= position + heap->powToLength(k)) throw "Overwriting existing block.";
+        }
+        heap->setBlock(0, k , lists[k]);
+        lists[k] = position;
+    }
+    catch (string s) {
+        cout << "Exception: " << s << endl;
+    }
 }
 
 POSITION FreeLists::GetFromFree(int k) {
-	// TODO: Validate k
 
-	int position = lists[k];
-	lists[k] = heap->GetVal(position + OFFSET_NEXT);
+    int position = lists[k];
 
+//  returns -1 if k invalid
+    if (k <= heap->getM()) {
+        lists[k] = heap->GetVal(position + OFFSET_NEXT);
+    } else position = PSEUDO;
 	return position;
 }

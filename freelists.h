@@ -2,13 +2,9 @@
 #define FREELISTS_H
 
 #include "heap.h"
+#include <string>
+#include <iostream>
 using namespace std;
-
-#define NO_FREE_LIST -1
-
-#define OFFSET_RESERVED 0
-#define OFFSET_SIZE 1
-#define OFFSET_NEXT 2
 
 class FreeLists {
 
