@@ -3,10 +3,13 @@
 #include <iostream>
 using namespace std;
 
+#define M 16
+
 void printOptions();
 void doAction(char action);
 
-BuddySystem* buddySystem = new BuddySystem(7);
+Heap* heap = new Heap(M);
+BuddySystem* buddySystem = new BuddySystem(heap);
 
 int main(int argc, const char* argv[])
 {
