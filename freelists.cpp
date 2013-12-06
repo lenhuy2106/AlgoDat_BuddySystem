@@ -1,30 +1,37 @@
 #include "freelists.h"
 
-FreeLists::FreeLists (int m) : Heap (m) {
+FreeLists::FreeLists(Heap* heap) {
+	this->heap = heap;
+	size = heap->getM() + 1;
+	lists = new int[size];
 
-    vector<int> newHeapVec (m, 0);
-    heapVec = newHeapVec;
-    vector<int> freeList;
+	// Set all free lists to an empty state (except the last)
+	for (int i = 0; i < heap->getM(); i++) {
+		lists[i] = NO_FREE_LIST;
+	}
 
-    vector<vector<int> > fListsVec (m+1, freeList);
-    fListsVec[m] = heapVec;
+	// Initial free block for the whole heap
+	heap->SetVal(0 + OFFSET_RESERVED, 0);
+	heap->SetVal(0 + OFFSET_SIZE, 2 ^ heap->getM());
+	heap->SetVal(0 + OFFSET_NEXT, NO_FREE_LIST);
+	lists[heap->getM()] = 0;
 }
 
-void FreeLists::AddToFree (POSITION p) {
+void FreeLists::AddToFree(POSITION position, int k) {
+	// TODO: Check if we have enough free space.
+	// TODO: Align position?
 
-//  position and size inserted ?
-    fListsVec[p].insert (fListsVec[p].begin(), p);
+	heap->SetVal(position + OFFSET_RESERVED, 0);
+	heap->SetVal(position + OFFSET_SIZE, 2 ^ k);
+	heap->SetVal(position + OFFSET_NEXT, lists[k]);
+	lists[k] = position;
 }
 
-POSITION FreeLists::GetFromFree (POSITION k) {
+POSITION FreeLists::GetFromFree(int k) {
+	// TODO: Validate k
 
-    if (fListsVec[k].size () > 0) {
+	int position = lists[k];
+	lists[k] = heap->GetVal(position + OFFSET_NEXT);
 
-        POSITION tmp = fListsVec[k].front ();
-        fListsVec[k].erase (fListsVec[k].begin());
-        return tmp;
-
-    } else {
-        return PSEUDO;
-    }
+	return position;
 }
