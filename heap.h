@@ -8,9 +8,13 @@ typedef int ATOM;
 
 class Heap {
 private:
+	int m;
+	int length;
 	int* data;
 public:
     Heap(int m);
+	int getM();
+	int getLength();
     inline void SetVal(POSITION p, ATOM val);
     inline int GetVal(POSITION p);
 };
