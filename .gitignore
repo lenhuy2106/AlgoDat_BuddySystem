@@ -245,3 +245,5 @@ Makefile*
 # QtCreator
 
 *.autosave
+/freelist_ccp
+/freelist_header
