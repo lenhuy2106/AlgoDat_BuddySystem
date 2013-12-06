@@ -247,3 +247,4 @@ Makefile*
 *.autosave
 /freelist_ccp
 /freelist_header
+/BuddyMem.pro
