@@ -12,12 +12,13 @@ typedef int ATOM;
 class Heap {
 private:
 	int m;
+    // in bytes
 	int length;
     int* data;
 public:
     Heap(int m);
 	int getM();
-    int powToLength(int k);
+    int powToAtoms(int k);
     int getLength();
     void setBlock(int res, int k, int val);
 

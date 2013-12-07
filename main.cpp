@@ -13,14 +13,6 @@ BuddySystem* buddySystem = new BuddySystem(heap);
 
 int main()
 {
-    /* TODO: fix
-    buddySystem->fListsVec[2].size();
-
-    for (int i = 0; i < buddySystem->heapVec.size (); i++) {
-        cout << buddySystem->heapVec[i] << endl;
-    }
-    */
-
     char action;
     do {
         printOptions();

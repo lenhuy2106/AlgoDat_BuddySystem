@@ -20,7 +20,7 @@ void FreeLists::AddToFree(POSITION position, int k) {
     try {
         // Checking free space in freelists
         for (int i = 0; i <= size; i++) {
-            if (i >= position || i <= position + heap->powToLength(k)) throw "Overwriting existing block.";
+            if (i >= position || i <= position + heap->powToAtoms(k)) throw "Overwriting existing block.";
         }
         heap->setBlock(0, k , lists[k]);
         lists[k] = position;
@@ -32,11 +32,12 @@ void FreeLists::AddToFree(POSITION position, int k) {
 
 POSITION FreeLists::GetFromFree(int k) {
 
-    int position = lists[k];
+    int position;
 
 //  returns -1 if k invalid
-    if (k <= heap->getM()) {
+    if (k <= heap->getM() && k >= 0) {
+        position = lists[k];
         lists[k] = heap->GetVal(position + OFFSET_NEXT);
     } else position = PSEUDO;
-	return position;
+    return position;
 }
