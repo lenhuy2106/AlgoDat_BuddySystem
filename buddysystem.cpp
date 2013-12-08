@@ -2,6 +2,7 @@
 #include <math.h>
 
 BuddySystem::BuddySystem(Heap* heap) {
+    this->heap = heap;
 	freeLists = new FreeLists(heap);
 }
 
@@ -70,9 +71,9 @@ void BuddySystem::DisposeMem(POSITION p) {
 /*
  *returns size of a block
  */
-int BuddySystem::SizeOfBlock(POSITION position) {
+int BuddySystem::SizeOfBlock(POSITION p) {
     // -- segmentation fault
-    return heap->GetVal(position + 1);
+    return heap->GetVal(p + 1);
 }
 
 FreeLists* BuddySystem::GetFreeLists() { return freeLists; }

@@ -17,17 +17,18 @@ FreeLists::FreeLists(Heap* heap) {
 
 void FreeLists::AddToFree(POSITION position, int k) {
 
-    try {
-        // Checking free space in freelists
-        for (int i = 0; i <= size; i++) {
-            if (i >= position || i <= position + heap->PowToAtoms(k)) throw "Overwriting existing block.";
-        }
+// ? -- FreeSpaceCheck
+//    try {
+//
+//        for (int i = 0; i <= size; i++) {
+//            if (i >= position || i <= position + heap->PowToAtoms(k)) throw 1;
+//        }
         heap->SetBlock(0, k , lists[k]);
         lists[k] = position;
-    }
-    catch (string s) {
-        cout << "Exception: " << s << endl;
-    }
+//    }
+//    catch (int i) {
+//        cout << "Exception: Overwriting existing block." << endl;
+//    }
 }
 
 POSITION FreeLists::GetFromFree(int k) {

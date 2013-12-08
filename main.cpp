@@ -14,7 +14,6 @@ BuddySystem* buddySystem = new BuddySystem(heap);
 int main(int argc, char* argv[]) {
 
     // test()
-    cout << buddySystem->SizeOfBlock(0) << endl;
 
     char action;
     do {

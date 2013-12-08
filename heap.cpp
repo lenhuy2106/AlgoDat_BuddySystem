@@ -21,7 +21,7 @@ int Heap::GetLength() {
 
 void Heap::SetBlock(int res, int k, int next) {
     SetVal(0 + OFFSET_RESERVED, res);
-    SetVal(0 + OFFSET_SIZE, 2 ^ k);
+    SetVal(0 + OFFSET_SIZE, pow(2, k));
     SetVal(0 + OFFSET_NEXT, next);
 }
 

@@ -12,7 +12,7 @@ public:
     POSITION NewMem(POSITION p);
     FreeLists* GetFreeLists();
     void DisposeMem (POSITION p);
-    int  SizeOfBlock(POSITION position);
+    int  SizeOfBlock(POSITION p);
 
 };
 
