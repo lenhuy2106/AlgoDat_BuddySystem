@@ -23,7 +23,6 @@ void FreeLists::AddToFree(POSITION position, int k) {
 //        for (int i = 0; i <= size; i++) {
 //            if (i >= position || i <= position + heap->PowToAtoms(k)) throw 1;
 //        }
-        heap->SetBlock(0, k , lists[k]);
         lists[k] = position;
 //    }
 //    catch (int i) {

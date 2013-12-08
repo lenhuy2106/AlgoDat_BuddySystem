@@ -39,7 +39,9 @@ int Heap::GetVal(POSITION p) {
 }
 
 void Heap::Show() {
+    cout << "-----------------" << endl;
     for (ATOM i = 0; i <= atoms; i++) cout << data[i] << endl;
+    cout << "-----------------" << endl;
 }
 
 /*

@@ -8,22 +8,41 @@ BuddySystem::BuddySystem(Heap* heap) {
 
 POSITION BuddySystem::Allocate(POSITION p, int k) {
 
+    // -- test: +1 ( remove after testing! )
+    int currentSize = pow(2, k);
+    int intendedSize = SizeOfBlock(p);
+    int diff = heap->SizeToPow(SizeOfBlock(p)) + 1;
+
     // -- CheckBlockFree()
     // -- CheckBlockEnoughSize()
     // -- DeleteOrigEntry()
 
-    while (SizeOfBlock(p) != pow(2, k)) {
+    while ( currentSize != intendedSize) {
+
+        diff--;
         // SplitInHalf()
+            // -- SetSuccessor()
+            // -- UpdateFreeLists()
+
+            // SetResMark(p1)
+        heap->SetVal(p + OFFSET_RESERVED, 1);
             // SetNewSize(p1)
-        heap->SetVal(p + 1, pow(2, k-1));
+        heap->SetVal(p + OFFSET_SIZE, pow(2, diff));
+            // SetResMark(p2)
+        heap->SetVal((p + heap->PowToAtoms(diff)), 1);
             // SetNewSize(p2)
-        heap->SetVal((p + heap->PowToAtoms(k)) / 2, pow(2, k-1));
+        heap->SetVal((p + heap->PowToAtoms(diff)) + OFFSET_SIZE, pow(2, diff));
 
         // -- if (heap.FirstSize(p2, 2^k))
-            freeLists->AddToFree(p, k-1);
+        freeLists->AddToFree((p + heap->PowToAtoms(diff)), diff);
+
+        // test()
+        heap->Show();
 
         // -- else AddToFreeListElse(p, k-1)
-        k--;
+
+        // difference in size k(p) and k(allocate)
+        intendedSize = SizeOfBlock(p);
     }
     return p;
 }
@@ -36,6 +55,7 @@ POSITION BuddySystem::Allocate(POSITION p, int k) {
  */
 POSITION BuddySystem::NewMem(int k) {
 
+    // -- ValidateSize() - has to be at least 2^4 bytes to store essentials
     int tmp;
     int result = PSEUDO;
 
