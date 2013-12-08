@@ -8,9 +8,12 @@ private:
 	FreeLists* freeLists;
 public:
     BuddySystem(Heap* heap);
-    POSITION Allocate(POSITION p);
+    POSITION Allocate(POSITION p, int k);
     POSITION NewMem(POSITION p);
+    FreeLists* GetFreeLists();
     void DisposeMem (POSITION p);
+    int  SizeOfBlock(POSITION position);
+
 };
 
 #endif // BUDDYSYSTEM_H

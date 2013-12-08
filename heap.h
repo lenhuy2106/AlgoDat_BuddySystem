@@ -15,15 +15,17 @@ private:
     // in bytes
 	int length;
     int* data;
+    int atoms;
 public:
     Heap(int m);
-	int getM();
-    int powToAtoms(int k);
-    int getLength();
-    void setBlock(int res, int k, int val);
-
-    inline void SetVal(POSITION p, ATOM val);
-    inline int GetVal(POSITION p);
+    int GetM();
+    int PowToAtoms(int k);
+    int GetLength();
+    void SetBlock(int res, int k, int val);
+    void Show();
+    void SetVal(POSITION p, ATOM val);
+    int SizeToPow(int size);
+    int GetVal(POSITION p);
 };
 
 #endif // HEAP_H
