@@ -18,6 +18,7 @@ public:
     FreeLists(Heap* heap);
     inline int GetPos(int k) { return lists[k]; }
     void ShowLists();
+    void ShowLinkedNext(int linkedPos);
     inline int GetSize () { return size; }
     inline bool EmptyFree () { return (size == 0); }
     void AddToFree (POSITION p, int size);

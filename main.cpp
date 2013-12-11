@@ -13,13 +13,12 @@ BuddySystem* buddySystem = new BuddySystem(heap);
 
 int main(int argc, char* argv[]) {
 
-    // test()
-    cout << "--------------------";
-
+    cout << "-----------------" << endl;
+    cout << "BUDDY - MEMORY" << endl;
     char action;
     do {
         printOptions();
-        cout << "> ";
+        cout << "-----------------" << endl << "> ";
         cin >> action;
         doAction(action);
     } while (action != 'q');
@@ -28,13 +27,15 @@ int main(int argc, char* argv[]) {
 }
 
 void printOptions() {
-    cout << "Options:" << endl;
-    cout << "> (s)how heap" << endl;
-    cout << "> (l)ists" << endl;
-    cout << "> (n)ew memory: Size in Power of 2" << endl;
-    cout << "> (d)ispose memory: Size in Power of 2" << endl;
 
-    cout << "> (q)uit" << endl;
+    cout << "-----------------" << endl;
+    cout << " Options" << endl;
+    cout << "-----------------" << endl;
+    cout << "> (s) how heap" << endl;
+    cout << "> (f) ree-Lists" << endl;
+    cout << "> (n) ew memory" << endl;
+    cout << "> (d) ispose memory" << endl;
+    cout << "> (q) uit" << endl;
 }
 
 void doAction(char action) {
@@ -46,13 +47,16 @@ void doAction(char action) {
         heap->Show();
             break;
         case 'n':
+        cout << " Power of 2: ";
         cin >> size;
         buddySystem->NewMem(size);
             break;
         case 'd':
+        cout << " Position: ";
         cin >> position;
         buddySystem->DisposeMem(position);
-        case 'l':
+            break;
+        case 'f':
         buddySystem->GetFreeLists()->ShowLists();
             break;
     }
