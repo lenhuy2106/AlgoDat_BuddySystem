@@ -14,6 +14,7 @@ BuddySystem* buddySystem = new BuddySystem(heap);
 int main(int argc, char* argv[]) {
 
     // test()
+    cout << "--------------------";
 
     char action;
     do {

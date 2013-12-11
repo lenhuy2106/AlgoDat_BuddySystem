@@ -10,37 +10,33 @@ POSITION BuddySystem::Allocate(POSITION p, int k) {
 
     int intendedSize = pow(2, k);
     int currentSize = SizeOfBlock(p);
+    int diff = heap->SizeToPow(currentSize);
 
     // -- test: +1 ( remove after testing! ) -> why wrong sizeToPow()??
     // -- bug: freeLists updates
 
 if ( intendedSize != currentSize) {
 
-    int diff = heap->SizeToPow(SizeOfBlock(p));
 
     // DeleteOrigEntry()
-    freeLists->GetFromFree(heap->SizeToPow(SizeOfBlock(p)) + 1);
+    freeLists->GetFromFree(diff);
 
     while ( intendedSize != currentSize) {
 
+        diff--;
         // SplitInHalf()
-
         heap->SetBlock(p, 1, diff, freeLists->GetPos(k));
-
-        heap->SetBlock(p + heap->PowToAtoms(diff),1 , diff, freeLists->GetPos(k));
+        heap->SetBlock(p + heap->PowToAtoms(diff), 1, diff, freeLists->GetPos(k));
 
         freeLists->AddToFree((p + heap->PowToAtoms(diff)), diff);
 
         // difference in size k(p) and k(allocate)
         currentSize = SizeOfBlock(p);
-
-        diff--;
     }
 
 } else {
 
-    freeLists->GetFromFree(heap->SizeToPow(SizeOfBlock(p)));
-
+    freeLists->GetFromFree(diff);
     heap->SetBlock(p, 1, k, freeLists->GetPos(k));
 }
     return p;
@@ -77,16 +73,13 @@ POSITION BuddySystem::NewMem(int k) {
  */
 void BuddySystem::DisposeMem(POSITION p) {
     // ReservedCheck(p)
-    try {
-        if (heap->GetVal(p) != 1) throw "No Reserved Block: ";
-        else
-        // -- if (heap.FirstSize(p))
-            freeLists->AddToFree(p, heap->SizeToPow(SizeOfBlock(p)));
-        // -- else AddToFreeListElse(p)
-    }
-    catch (string s) {
-        cout << s << "at Heap Position " << p << endl;
-    }
+        // -- isMark()
+    if (heap->GetVal(p) == 0) cout << "Block at position "<< p << " already free." << endl;
+    else if (heap->GetVal(p) == 1) freeLists->AddToFree(p, heap->SizeToPow(SizeOfBlock(p)));
+
+    else // -- if (heap.FirstSize(p))
+        cout << "Block at position "<< p << " not found." <<  endl;
+    // -- else AddToFreeListElse(p)
 }
 
 /*

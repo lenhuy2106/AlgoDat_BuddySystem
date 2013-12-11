@@ -55,5 +55,5 @@ void Heap::Show() {
  *returns log base2 of a block size
  */
 int Heap::SizeToPow(int size) {
-    return log10(size) / log10(2);
+    return log2(size);
 }

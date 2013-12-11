@@ -37,7 +37,7 @@ POSITION FreeLists::GetFromFree(int k) {
     int position;
 
 //  returns -1 if k invalid
-    if (k <= heap->GetM() && k >= 0) {
+    if (k >= 0 && k <= heap->GetM()) {
         position = lists[k];
         // -- CheckIfFirst()
         lists[k] = heap->GetVal(position + OFFSET_NEXT);
@@ -46,5 +46,17 @@ POSITION FreeLists::GetFromFree(int k) {
 }
 
 void FreeLists::ShowLists() {
-    for (int i = 0; i <= GetSize(); i++) cout << pow(2,i) << ":\t" << GetPos(i) << endl;
+    for (int i = 0; i <= GetSize(); i++) {
+
+//        // ShowLinkedList
+//        if (GetPos(i) != PSEUDO) {
+//            int cur = heap->GetVal(GetPos(i) + OFFSET_NEXT);
+
+//            while (cur != PSEUDO) {
+//                cout << "\t" << cur;
+//                cur = heap->GetVal(cur) + OFFSET_NEXT;
+//            }
+//        }
+        cout << pow(2,i) << ":\t" << GetPos(i) << endl;
+    }
 }
