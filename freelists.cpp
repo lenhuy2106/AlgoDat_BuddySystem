@@ -1,3 +1,4 @@
+#include <math.h>
 #include "freelists.h"
 
 FreeLists::FreeLists(Heap* heap) {
@@ -45,5 +46,5 @@ POSITION FreeLists::GetFromFree(int k) {
 }
 
 void FreeLists::ShowLists() {
-    for (int i = 0; i <= GetSize(); i++) cout << GetPos(i) << endl;
+    for (int i = 0; i <= GetSize(); i++) cout << pow(2,i) << ":\t" << GetPos(i) << endl;
 }

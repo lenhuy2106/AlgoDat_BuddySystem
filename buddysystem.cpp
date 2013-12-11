@@ -8,55 +8,40 @@ BuddySystem::BuddySystem(Heap* heap) {
 
 POSITION BuddySystem::Allocate(POSITION p, int k) {
 
-    int currentSize = pow(2, k);
-    int intendedSize = SizeOfBlock(p);
+    int intendedSize = pow(2, k);
+    int currentSize = SizeOfBlock(p);
 
     // -- test: +1 ( remove after testing! ) -> why wrong sizeToPow()??
-    int diff = heap->SizeToPow(SizeOfBlock(p)) + 1;
+    // -- bug: freeLists updates
 
-if ( currentSize != intendedSize) {
+if ( intendedSize != currentSize) {
 
-        // DeleteOrigEntry()
+    int diff = heap->SizeToPow(SizeOfBlock(p));
+
+    // DeleteOrigEntry()
     freeLists->GetFromFree(heap->SizeToPow(SizeOfBlock(p)) + 1);
 
-    while ( currentSize != intendedSize) {
+    while ( intendedSize != currentSize) {
 
-        diff--;
         // SplitInHalf()
 
-            // SetResMark(p1)
-        heap->SetVal(p + OFFSET_RESERVED, 1);
-            // SetNewSize(p1)
-        heap->SetVal(p + OFFSET_SIZE, pow(2, diff));
-            // ? -- SetNewSuc(p1)
-        heap->SetVal(p + OFFSET_NEXT, freeLists->GetPos(k));
+        heap->SetBlock(p, 1, diff, freeLists->GetPos(k));
 
-            // SetResMark(p2)
-        heap->SetVal((p + heap->PowToAtoms(diff)) + OFFSET_RESERVED, 1);
-            // SetNewSize(p2)
-        heap->SetVal((p + heap->PowToAtoms(diff)) + OFFSET_SIZE, pow(2, diff));
-            // SetNewSucc(p2):
-        heap->SetVal((p + heap->PowToAtoms(diff)) + OFFSET_NEXT, freeLists->GetPos(k));
+        heap->SetBlock(p + heap->PowToAtoms(diff),1 , diff, freeLists->GetPos(k));
 
-        // if (heap.FirstSize(p2, 2^k)) : Not neccessary ( NewMem allocates first element in lists )
         freeLists->AddToFree((p + heap->PowToAtoms(diff)), diff);
 
-        // else AddToFreeListElse(p, k-1) : Not neccessary ( It's always the first fitting one )
-
         // difference in size k(p) and k(allocate)
-        intendedSize = SizeOfBlock(p);
+        currentSize = SizeOfBlock(p);
+
+        diff--;
     }
 
 } else {
 
-        // DeleteOrigEntry()
     freeLists->GetFromFree(heap->SizeToPow(SizeOfBlock(p)));
-        // SetResMark(p1)
-    heap->SetVal(p + OFFSET_RESERVED, 1);
-        // SetNewSize(p1)
-    heap->SetVal(p + OFFSET_SIZE, pow(2, k));
-        // ? -- SetNewSuc(p1)
-    heap->SetVal(p + OFFSET_NEXT, freeLists->GetPos(k));
+
+    heap->SetBlock(p, 1, k, freeLists->GetPos(k));
 }
     return p;
 }

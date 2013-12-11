@@ -47,7 +47,7 @@ int Heap::GetVal(POSITION p) {
 
 void Heap::Show() {
     cout << "-----------------" << endl;
-    for (ATOM i = 0; i <= atoms; i++) cout << data[i] << endl;
+    for (ATOM i = 0; i <= atoms; i++) cout << i << ":\t" << data[i] << endl;
     cout << "-----------------" << endl;
 }
 
@@ -55,5 +55,5 @@ void Heap::Show() {
  *returns log base2 of a block size
  */
 int Heap::SizeToPow(int size) {
-    return log(size) / log(2);
+    return log10(size) / log10(2);
 }
