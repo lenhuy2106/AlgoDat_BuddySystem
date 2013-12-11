@@ -11,7 +11,7 @@ FreeLists::FreeLists(Heap* heap) {
 	}
 
     // Initial free block for the whole heap
-    heap->SetBlock(0,heap->GetM(),PSEUDO);
+    heap->SetBlock(0,0,heap->GetM(),PSEUDO);
     lists[heap->GetM()] = 0;
 }
 
@@ -23,6 +23,7 @@ void FreeLists::AddToFree(POSITION position, int k) {
 //        for (int i = 0; i <= size; i++) {
 //            if (i >= position || i <= position + heap->PowToAtoms(k)) throw 1;
 //        }
+    heap->SetBlock(position,0, k, lists[k]);
         lists[k] = position;
 //    }
 //    catch (int i) {
@@ -44,5 +45,5 @@ POSITION FreeLists::GetFromFree(int k) {
 }
 
 void FreeLists::ShowLists() {
-    for (int i = 0; i <= GetSize(); i++) cout << GetLists()[i] << endl;
+    for (int i = 0; i <= GetSize(); i++) cout << GetPos(i) << endl;
 }

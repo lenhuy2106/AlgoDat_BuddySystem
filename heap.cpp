@@ -19,10 +19,17 @@ int Heap::GetLength() {
 	return length;
 }
 
-void Heap::SetBlock(int res, int k, int next) {
-    SetVal(0 + OFFSET_RESERVED, res);
-    SetVal(0 + OFFSET_SIZE, pow(2, k));
-    SetVal(0 + OFFSET_NEXT, next);
+/*
+ *Sets a block in heap.
+ *param pos: position of block to set
+ *      res: reserved mark
+ *      size: power of 2
+ *      next: position of successor (same size)
+ */
+void Heap::SetBlock(int pos, int res, int k, int next) {
+    SetVal(pos + OFFSET_RESERVED, res);
+    SetVal(pos + OFFSET_SIZE, pow(2, k));
+    SetVal(pos + OFFSET_NEXT, next);
 }
 
 int Heap::PowToAtoms(int k) {

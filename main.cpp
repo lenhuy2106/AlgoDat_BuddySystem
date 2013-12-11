@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-#define M 6
+#define M 7
 
 void printOptions();
 void doAction(char action);

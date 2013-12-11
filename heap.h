@@ -21,7 +21,7 @@ public:
     int GetM();
     int PowToAtoms(int k);
     int GetLength();
-    void SetBlock(int res, int k, int val);
+    void SetBlock(int pos, int res, int k, int val);
     void Show();
     void SetVal(POSITION p, ATOM val);
     int SizeToPow(int size);

@@ -16,8 +16,7 @@ private:
 	int* lists;
 public:
     FreeLists(Heap* heap);
-    // -- prefer GetPos()
-    inline int* GetLists() { return lists; }
+    inline int GetPos(int k) { return lists[k]; }
     void ShowLists();
     inline int GetSize () { return size; }
     inline bool EmptyFree () { return (size == 0); }
