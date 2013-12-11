@@ -35,7 +35,7 @@ POSITION FreeLists::GetFromFree(int k) {
 void FreeLists::ShowLists() {
 
     cout << "-----------------" << endl;
-    cout << "Line\tFirstPos" << endl;
+    cout << "Size\tFPos" << endl;
     cout << "-----------------" << endl;
     for (int i = 0; i <= GetSize(); i++) {
         cout << pow(2,i) << ":\t";

@@ -1,9 +1,7 @@
 #include "buddysystem.h"
-
 #include <iostream>
-using namespace std;
-
 #define M 7
+using namespace std;
 
 void printOptions();
 void doAction(char action);

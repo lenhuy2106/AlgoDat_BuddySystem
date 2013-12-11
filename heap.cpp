@@ -47,7 +47,7 @@ int Heap::GetVal(POSITION p) {
 
 void Heap::Show() {
     cout << "-----------------" << endl;
-    cout << "Pos\tSize" << endl;
+    cout << "Pos\tVal" << endl;
     cout << "-----------------" << endl;
     for (ATOM i = 0; i <= atoms; i++) cout << i << ":\t" << data[i] << endl;
     cout << "-----------------" << endl;
