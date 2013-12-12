@@ -1,5 +1,9 @@
 #include "buddysystem.h"
 
+#include <iostream>
+
+using namespace std;
+
 BuddySystem::BuddySystem(Heap* heap) {
     this->heap = heap;
 	freeLists = new FreeLists(heap);

@@ -1,5 +1,10 @@
 #include "heap.h"
 
+#include <cmath>
+#include <iostream>
+
+using namespace std;
+
 Heap::Heap(int m) {
 	this->m = m;
     // extra 2 Einheiten ?

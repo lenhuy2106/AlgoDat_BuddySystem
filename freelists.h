@@ -2,11 +2,6 @@
 #define FREELISTS_H
 
 #include "heap.h"
-#include <string>
-#include <iostream>
-#include <math.h>
-
-using namespace std;
 
 class FreeLists {
 
@@ -16,6 +11,8 @@ private:
     int size;
 	// Positions of the first element of the free lists
 	int* lists;
+
+	bool removeFromFreeList(POSITION p, int size);
 public:
     FreeLists(Heap* heap);
     inline int GetPos(int k) { return lists[k]; }

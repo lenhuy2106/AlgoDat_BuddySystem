@@ -6,10 +6,6 @@
 #define OFFSET_SIZE 1
 #define OFFSET_NEXT 2
 
-#include <math.h>
-#include <iostream>
-using namespace std;
-
 typedef int POSITION;
 typedef int ATOM;
 
