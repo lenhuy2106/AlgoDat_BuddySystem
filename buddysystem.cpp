@@ -52,18 +52,15 @@ POSITION BuddySystem::NewMem(int k) {
 
     // -- CheckBlockFree()
     // -- CheckBlockEnoughSize()
-    int tmp;
-    int result = PSEUDO;
-
     // lists.FindFitOrGreater()
-    for (tmp = k; tmp <= freeLists->GetSize(); tmp++) {
-        if (freeLists->GetPos(tmp) != PSEUDO) {
-            result = freeLists->GetPos(tmp);
-            Allocate(result, k);
-            break;
+    for (int tmp = k; tmp <= freeLists->GetSize(); tmp++) {
+		int position = freeLists->GetFromFree(tmp);
+        if (position != PSEUDO) {
+            return Allocate(position, k);
         }
     }
-    return result;
+
+    return PSEUDO;
 }
 
 /*
