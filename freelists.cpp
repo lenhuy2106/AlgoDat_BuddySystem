@@ -1,4 +1,8 @@
 #include "freelists.h"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
 
 FreeLists::FreeLists(Heap* heap) {
 	this->heap = heap;
@@ -13,8 +17,23 @@ FreeLists::FreeLists(Heap* heap) {
 }
 
 void FreeLists::AddToFree(POSITION position, int k) {
-    heap->SetBlock(position,0, k, lists[k]);
+    heap->SetBlock(position, 0, k, lists[k]);
     lists[k] = position;
+
+	// Merge with buddy
+	int buddyPosition = position ^ (int)pow(2, k);
+	bool isBuddyReserved = (1 == heap->GetVal(buddyPosition + OFFSET_RESERVED));
+	int buddySize = heap->GetVal(buddyPosition + OFFSET_SIZE);
+	if (!isBuddyReserved && buddySize == k) {
+		int leftBuddyPosition = min<int>(position, buddyPosition);
+		int rightBuddyPosition = max<int>(position, buddyPosition);
+		
+		removeFromFreeList(leftBuddyPosition, k);
+		removeFromFreeList(rightBuddyPosition, k);
+
+		// Merge (recursive)
+		AddToFree(leftBuddyPosition, k * 2);
+	}
 }
 
 POSITION FreeLists::GetFromFree(int k) {
@@ -52,4 +71,25 @@ void FreeLists::ShowLinkedNext(int linkedPos) {
         cout << cur << "\t";
         cur = heap->GetVal(cur + OFFSET_NEXT);
     }
+}
+
+bool FreeLists::removeFromFreeList(POSITION p, int k) {
+	int previousPosition = PSEUDO;
+	int currentPosition = lists[k];
+	while (currentPosition != PSEUDO && currentPosition != p) {
+		previousPosition = currentPosition;
+		currentPosition = heap->GetVal(currentPosition + OFFSET_NEXT);
+	}
+	if (currentPosition != PSEUDO) {
+		int nextPosition = heap->GetVal(p + OFFSET_NEXT);
+		if (previousPosition == PSEUDO) {
+			// Removed free block is the first in the free list
+			lists[k] = nextPosition;
+		} else {
+			heap->SetVal(previousPosition + OFFSET_NEXT, nextPosition);
+		}
+		return true;
+	} else {
+		return false;
+	}
 }

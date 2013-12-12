@@ -2,9 +2,6 @@
 #define BUDDYSYSTEM_H
 #include "freelists.h"
 
-#include <math.h>
-
-
 class BuddySystem {
 private:
 	Heap* heap;
