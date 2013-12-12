@@ -56,5 +56,5 @@ void Heap::Show() {
  *returns log base2 of a block size
  */
 int Heap::SizeToPow(int size) {
-    return log2(size);
+    return ceil(log2(size));
 }
