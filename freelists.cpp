@@ -21,29 +21,36 @@ void FreeLists::AddToFree(POSITION position, int k) {
     lists[k] = position;
 
 	// Merge with buddy
-	int buddyPosition = position ^ (int)pow(2, k);
-	bool isBuddyReserved = (1 == heap->GetVal(buddyPosition + OFFSET_RESERVED));
-	int buddySize = heap->GetVal(buddyPosition + OFFSET_SIZE);
-	if (!isBuddyReserved && buddySize == k) {
-		int leftBuddyPosition = min<int>(position, buddyPosition);
-		int rightBuddyPosition = max<int>(position, buddyPosition);
+	if (k < heap->GetM()) {
+		int buddyPosition = position ^ (int)pow(2, k);
+		bool isBuddyReserved = (1 == heap->GetVal(buddyPosition + OFFSET_RESERVED));
+		int buddySize = heap->GetVal(buddyPosition + OFFSET_SIZE);
+		if (!isBuddyReserved && buddySize == k) {
+			int leftBuddyPosition = min<int>(position, buddyPosition);
+			int rightBuddyPosition = max<int>(position, buddyPosition);
 		
-		removeFromFreeList(leftBuddyPosition, k);
-		removeFromFreeList(rightBuddyPosition, k);
+			removeFromFreeList(leftBuddyPosition, k);
+			removeFromFreeList(rightBuddyPosition, k);
 
-		// Merge (recursive)
-		AddToFree(leftBuddyPosition, k * 2);
+			// Merge (recursive)
+			AddToFree(leftBuddyPosition, k + 1);
+		}
 	}
 }
 
 POSITION FreeLists::GetFromFree(int k) {
     int position;
 
-//  returns -1 if k invalid
+	//  returns -1 if k invalid
     if (k >= 0 && k <= heap->GetM()) {
         position = lists[k];
-        lists[k] = heap->GetVal(position + OFFSET_NEXT);
-    } else position = PSEUDO;
+		if (position != PSEUDO) {
+			lists[k] = heap->GetVal(position + OFFSET_NEXT);
+		}
+    } else {
+		position = PSEUDO;
+	}
+
     return position;
 }
 
