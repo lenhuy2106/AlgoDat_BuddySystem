@@ -5,6 +5,9 @@ Heap::Heap(int m) {
     // extra 2 Einheiten ?
     length = pow(2, m) + 2;
     data = new ATOM[length];
+
+    // Initial free block for the whole heap
+    SetBlock(0, 0, m, PSEUDO);
 }
 
 int Heap::GetM() {
@@ -24,7 +27,7 @@ int Heap::GetLength() {
  */
 void Heap::SetBlock(int pos, int res, int k, int next) {
     SetVal(pos + OFFSET_RESERVED, res);
-    SetVal(pos + OFFSET_SIZE, pow(2, k));
+    SetVal(pos + OFFSET_SIZE, k);
     SetVal(pos + OFFSET_NEXT, next);
 }
 

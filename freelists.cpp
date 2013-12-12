@@ -9,9 +9,6 @@ FreeLists::FreeLists(Heap* heap) {
     for (int i = 0; i < size; i++) {
         lists[i] = PSEUDO;
 	}
-
-    // Initial free block for the whole heap
-    heap->SetBlock(0,0,heap->GetM(),PSEUDO);
     lists[heap->GetM()] = 0;
 }
 
@@ -37,7 +34,7 @@ void FreeLists::ShowLists() {
     cout << "Size\tFPos" << endl;
     cout << "-----------------" << endl;
     for (int i = 0; i <= GetSize(); i++) {
-        cout << pow(2,i) << ":\t";
+        cout << i << ":\t";
 
         if (GetPos(i) != PSEUDO) {
            ShowLinkedNext(i);

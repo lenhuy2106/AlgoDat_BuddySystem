@@ -7,22 +7,27 @@ BuddySystem::BuddySystem(Heap* heap) {
 
 POSITION BuddySystem::Allocate(POSITION p, int k) {
 
-    int intendedSize = pow(2, k);
+    int intendedSize = k;
     int currentSize = SizeOfBlock(p);
-    int diff = heap->SizeToPow(currentSize);
+    int diff = currentSize;
 
     if (intendedSize != currentSize) {
         // DeleteOrigEntry()
-        freeLists->GetFromFree(diff);
+        int blockPos = freeLists->GetFromFree(diff);
+        int nextBlock;
 
-        while ( intendedSize != currentSize) {
+        while (intendedSize != currentSize) {
             diff--;
+            nextBlock = heap->PowToAtoms(diff);
             // SplitInHalf()
-            heap->SetBlock(p, 1, diff, freeLists->GetPos(k));
-            heap->SetBlock(p + heap->PowToAtoms(diff), 1, diff, freeLists->GetPos(k));
+            heap->SetBlock(p, 1, diff, blockPos);
+            heap->SetBlock(p + nextBlock, 1, diff, blockPos);
 
             // UpdateFree()
-            freeLists->AddToFree((p + heap->PowToAtoms(diff)), diff);
+            freeLists->AddToFree((p + nextBlock), diff);
+
+            // -- UpdatePos()
+
 
             // difference in size k(p) and k(allocate)
             currentSize = SizeOfBlock(p);
