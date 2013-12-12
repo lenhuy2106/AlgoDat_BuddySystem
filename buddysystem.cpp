@@ -76,7 +76,7 @@ void BuddySystem::DisposeMem(POSITION p) {
         cout << "Block at position "<< p << " already free." << endl;
 
     else if (heap->GetVal(p) == 1)
-        freeLists->AddToFree(p, heap->SizeToPow(SizeOfBlock(p)));
+        freeLists->AddToFree(p, SizeOfBlock(p));
 
     else // -- if (heap.FirstSize(p))
         cout << "Block at position "<< p << " not found." <<  endl;

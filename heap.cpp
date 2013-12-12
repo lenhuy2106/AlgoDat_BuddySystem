@@ -52,9 +52,3 @@ void Heap::Show() {
     cout << "-----------------" << endl;
 }
 
-/*
- *returns log base2 of a block size
- */
-int Heap::SizeToPow(int size) {
-    return ceil(log2(size));
-}

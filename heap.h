@@ -28,7 +28,6 @@ public:
     void SetBlock(int pos, int res, int k, int val);
     void Show();
     void SetVal(POSITION p, ATOM val);
-    int SizeToPow(int size);
     int GetVal(POSITION p);
 };
 
