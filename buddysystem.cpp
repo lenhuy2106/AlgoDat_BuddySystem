@@ -44,8 +44,8 @@ POSITION BuddySystem::Allocate(POSITION p, int k) {
  *          -1: n
  */
 POSITION BuddySystem::NewMem(int k) {
-    // -- ValidateSize() - has to be at least 2^4 bytes to store essentials
-    if (k < 4) {
+    // -- ValidateSize() - has to be at least 2^2 bytes to store essentials
+    if (k < 2) {
         return PSEUDO;
     }
 

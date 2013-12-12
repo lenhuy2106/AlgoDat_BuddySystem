@@ -32,7 +32,7 @@ void Heap::SetBlock(int pos, int res, int k, int next) {
 }
 
 int Heap::PowToAtoms(int k) {
-    return pow(2, k) / sizeof(ATOM);
+    return pow(2, k);
 }
 
 inline void Heap::SetVal(POSITION p, ATOM val) {
