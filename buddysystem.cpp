@@ -10,11 +10,11 @@ POSITION BuddySystem::Allocate(POSITION p, int k) {
     int intendedSize = k;
     int currentSize = SizeOfBlock(p);
     int diff = currentSize;
+    int blockPos = freeLists->GetFromFree(diff);
+    int nextBlock;
 
     if (intendedSize != currentSize) {
         // DeleteOrigEntry()
-        int blockPos = freeLists->GetFromFree(diff);
-        int nextBlock;
 
         while (intendedSize != currentSize) {
             diff--;
@@ -26,15 +26,13 @@ POSITION BuddySystem::Allocate(POSITION p, int k) {
             // UpdateFree()
             freeLists->AddToFree((p + nextBlock), diff);
 
-            // -- UpdatePos()
-
-
             // difference in size k(p) and k(allocate)
             currentSize = SizeOfBlock(p);
+
+            // -- UpdateSuc()
         }
     } else {
-        freeLists->GetFromFree(diff);
-        heap->SetBlock(p, 1, k, freeLists->GetPos(k));
+        heap->SetBlock(p, 1, k, blockPos);
     }
     return p;
 }
