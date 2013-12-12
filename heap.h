@@ -21,7 +21,8 @@ public:
     int GetM();
     int PowToAtoms(int k);
     int GetLength();
-    void SetBlock(int pos, int res, int k, int val);
+    void SetFreeBlock(int pos, int k, int next);
+	void SetReservedBlock(int pos, int k);
     void Show();
     void SetVal(POSITION p, ATOM val);
     int GetVal(POSITION p);

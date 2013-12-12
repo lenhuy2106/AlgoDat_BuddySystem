@@ -30,11 +30,11 @@ void printOptions() {
     cout << "-----------------" << endl;
     cout << " Options" << endl;
     cout << "-----------------" << endl;
-    cout << "> (s)how heap" << endl;
-    cout << "> (f)ree-lists" << endl;
-    cout << "> (n)ew memory" << endl;
-    cout << "> (d)ispose memory" << endl;
-    cout << "> (q)uit" << endl;
+    cout << "(s)how heap" << endl;
+    cout << "(f)ree-lists" << endl;
+    cout << "(n)ew memory" << endl;
+    cout << "(d)ispose memory" << endl;
+    cout << "(q)uit" << endl;
 }
 
 void doAction(char action) {
@@ -46,7 +46,7 @@ void doAction(char action) {
             heap->Show();
             break;
         case 'n':
-        cout << " Power of 2: ";
+			cout << " Power of 2: ";
             cin >> size;
             if (buddySystem->NewMem(size) == PSEUDO) {
                 cout << "Error";

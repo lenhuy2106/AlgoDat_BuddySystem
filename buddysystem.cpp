@@ -10,34 +10,31 @@ BuddySystem::BuddySystem(Heap* heap) {
 }
 
 POSITION BuddySystem::Allocate(POSITION p, int k) {
+	// Get the next lower valid p
+	int blockSize = pow(2, k);
+	p = (p / blockSize) * blockSize;
 
+	int currentSize = SizeOfBlock(p);
     int intendedSize = k;
-    int currentSize = SizeOfBlock(p);
-    int diff = currentSize;
-    int blockPos = freeLists->GetFromFree(diff);
-    int nextBlock;
 
-    if (intendedSize != currentSize) {
-        // DeleteOrigEntry()
+	if (currentSize < intendedSize) {
+		return PSEUDO; // Block is to small
+	}
 
+    if (currentSize > intendedSize) {
         while (intendedSize != currentSize) {
-            diff--;
-            nextBlock = heap->PowToAtoms(diff);
-            // SplitInHalf()
-            heap->SetBlock(p, 1, diff, blockPos);
-            heap->SetBlock(p + nextBlock, 1, diff, blockPos);
+            // Split block in two equal halfs
+			currentSize--;
+            heap->SetReservedBlock(p, currentSize);
 
-            // UpdateFree()
-            freeLists->AddToFree((p + nextBlock), diff);
-
-            // difference in size k(p) and k(allocate)
-            currentSize = SizeOfBlock(p);
-
-            // -- UpdateSuc()
+            // Add new right buddy to the free list
+			int nextBlock = heap->PowToAtoms(currentSize);
+            freeLists->AddToFree(p + nextBlock, currentSize);
         }
     } else {
-        heap->SetBlock(p, 1, k, blockPos);
+        heap->SetReservedBlock(p, k);
     }
+
     return p;
 }
 

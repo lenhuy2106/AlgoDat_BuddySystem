@@ -17,7 +17,7 @@ FreeLists::FreeLists(Heap* heap) {
 }
 
 void FreeLists::AddToFree(POSITION position, int k) {
-    heap->SetBlock(position, 0, k, lists[k]);
+    heap->SetFreeBlock(position, k, lists[k]);
     lists[k] = position;
 
 	// Merge with buddy

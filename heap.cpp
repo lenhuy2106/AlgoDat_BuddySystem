@@ -12,7 +12,7 @@ Heap::Heap(int m) {
     data = new ATOM[length];
 
     // Initial free block for the whole heap
-    SetBlock(0, 0, m, PSEUDO);
+    SetFreeBlock(0, m, PSEUDO);
 }
 
 int Heap::GetM() {
@@ -30,10 +30,15 @@ int Heap::GetLength() {
  *      size: power of 2
  *      next: position of successor (same size)
  */
-void Heap::SetBlock(int pos, int res, int k, int next) {
-    SetVal(pos + OFFSET_RESERVED, res);
+void Heap::SetFreeBlock(int pos, int k, int next) {
+    SetVal(pos + OFFSET_RESERVED, 0);
     SetVal(pos + OFFSET_SIZE, k);
     SetVal(pos + OFFSET_NEXT, next);
+}
+
+void Heap::SetReservedBlock(int pos, int k) {
+    SetVal(pos + OFFSET_RESERVED, 1);
+    SetVal(pos + OFFSET_SIZE, k);
 }
 
 int Heap::PowToAtoms(int k) {
