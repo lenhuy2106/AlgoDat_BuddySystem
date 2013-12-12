@@ -24,8 +24,12 @@ public:
     void SetFreeBlock(int pos, int k, int next);
 	void SetReservedBlock(int pos, int k);
     void Show();
-    void SetVal(POSITION p, ATOM val);
-    int GetVal(POSITION p);
+    inline void SetVal(POSITION p, ATOM val) {
+		data[p] = val;
+	}
+    inline int GetVal(POSITION p) {
+		return data[p];
+	}
 };
 
 #endif // HEAP_H

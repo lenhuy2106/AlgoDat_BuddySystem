@@ -45,15 +45,6 @@ int Heap::PowToAtoms(int k) {
     return pow(2, k);
 }
 
-inline void Heap::SetVal(POSITION p, ATOM val) {
-    data[p] = val;
-}
-
-// -- inline: undefined
-int Heap::GetVal(POSITION p) {
-    return data[p];
-}
-
 void Heap::Show() {
     cout << "-----------------" << endl;
     cout << "Pos\tVal" << endl;
