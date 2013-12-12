@@ -1,5 +1,4 @@
 #include "buddysystem.h"
-#include <math.h>
 
 BuddySystem::BuddySystem(Heap* heap) {
     this->heap = heap;
@@ -12,7 +11,7 @@ POSITION BuddySystem::Allocate(POSITION p, int k) {
     int currentSize = SizeOfBlock(p);
     int diff = heap->SizeToPow(currentSize);
 
-    if ( intendedSize != currentSize) {
+    if (intendedSize != currentSize) {
         // DeleteOrigEntry()
         freeLists->GetFromFree(diff);
 
@@ -42,10 +41,13 @@ POSITION BuddySystem::Allocate(POSITION p, int k) {
  *          -1: n
  */
 POSITION BuddySystem::NewMem(int k) {
+    // -- ValidateSize() - has to be at least 2^4 bytes to store essentials
+    if (k < 4) {
+        return PSEUDO;
+    }
 
     // -- CheckBlockFree()
     // -- CheckBlockEnoughSize()
-    // -- ValidateSize() - has to be at least 2^4 bytes to store essentials
     int tmp;
     int result = PSEUDO;
 

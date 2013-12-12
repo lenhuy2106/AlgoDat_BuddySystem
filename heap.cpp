@@ -1,14 +1,10 @@
-#include <math.h>
 #include "heap.h"
-#include <iostream>
-using namespace std;
 
 Heap::Heap(int m) {
 	this->m = m;
+    // extra 2 Einheiten ?
     length = pow(2, m) + 2;
-    atoms = PowToAtoms(m) - 1;
-    // extra 2 bytes ?
-    data = new ATOM[atoms];
+    data = new ATOM[length];
 }
 
 int Heap::GetM() {
@@ -49,7 +45,7 @@ void Heap::Show() {
     cout << "-----------------" << endl;
     cout << "Pos\tVal" << endl;
     cout << "-----------------" << endl;
-    for (ATOM i = 0; i <= atoms; i++) cout << i << ":\t" << data[i] << endl;
+    for (ATOM i = 0; i <= length; i++) cout << i << ":\t" << data[i] << endl;
     cout << "-----------------" << endl;
 }
 

@@ -1,4 +1,3 @@
-#include <math.h>
 #include "freelists.h"
 
 FreeLists::FreeLists(Heap* heap) {

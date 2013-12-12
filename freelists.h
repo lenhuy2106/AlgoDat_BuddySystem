@@ -4,6 +4,8 @@
 #include "heap.h"
 #include <string>
 #include <iostream>
+#include <math.h>
+
 using namespace std;
 
 class FreeLists {
