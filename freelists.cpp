@@ -21,7 +21,7 @@ void FreeLists::AddToFree(POSITION position, int k) {
     lists[k] = position;
 
 	// Merge with buddy
-	if (k < heap->GetM()) {
+    if (k < heap->GetM()) {
 		int buddyPosition = position ^ (int)pow(2, k);
 		bool isBuddyReserved = (1 == heap->GetVal(buddyPosition + OFFSET_RESERVED));
 		int buddySize = heap->GetVal(buddyPosition + OFFSET_SIZE);

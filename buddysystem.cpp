@@ -1,5 +1,5 @@
 #include "buddysystem.h"
-
+#include <math.h>
 #include <iostream>
 
 using namespace std;
@@ -44,11 +44,12 @@ POSITION BuddySystem::Allocate(POSITION p, int k) {
  *  returns int: position of new block
  *          -1: n
  */
-POSITION BuddySystem::NewMem(int k) {
-    // -- ValidateSize() - has to be at least 2^2 bytes to store essentials
-    if (k < 2) {
-        return PSEUDO;
-    }
+POSITION BuddySystem::NewMem(int customSize) {
+    // ValidateSize() - has to be at least 2^2 bytes to store essentials
+    int k = 0;
+
+    while (customSize + 2 > pow(2, k)) k++;
+    cout << "Reserving " << pow(2, k) << " bytes block...";
 
     // -- CheckBlockFree()
     // -- CheckBlockEnoughSize()
@@ -59,7 +60,6 @@ POSITION BuddySystem::NewMem(int k) {
             return Allocate(position, k);
         }
     }
-
     return PSEUDO;
 }
 
@@ -69,16 +69,14 @@ POSITION BuddySystem::NewMem(int k) {
  */
 void BuddySystem::DisposeMem(POSITION p) {
     // ReservedCheck(p)
-        // -- isMark()
     if (heap->GetVal(p) == 0)
         cout << "Block at position "<< p << " already free." << endl;
 
     else if (heap->GetVal(p) == 1)
         freeLists->AddToFree(p, SizeOfBlock(p));
 
-    else // -- if (heap.FirstSize(p))
-        cout << "Block at position "<< p << " not found." <<  endl;
-    // -- else AddToFreeListElse(p)
+    else cout << "Block at position "<< p << " not found." <<  endl;
+
 }
 
 /*
