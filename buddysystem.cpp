@@ -40,16 +40,16 @@ POSITION BuddySystem::Allocate(POSITION p, int k) {
 
 /*
  *  Reserves new memory block.
- *  parameter k: power of size
+ *  parameter size: size in words
  *  returns int: position of new block
  *          -1: n
  */
-POSITION BuddySystem::NewMem(int customSize) {
+POSITION BuddySystem::NewMem(int size) {
     // ValidateSize() - has to be at least 2^2 bytes to store essentials
     int k = 0;
 
-    while (customSize + 2 > pow(2, k)) k++;
-    cout << "Reserving " << pow(2, k) << " bytes block...";
+    while (size + 2 > pow(2, k)) k++;
+    cout << "Reserving " << pow(2, k) << " words block..." << endl;
 
     // -- CheckBlockFree()
     // -- CheckBlockEnoughSize()

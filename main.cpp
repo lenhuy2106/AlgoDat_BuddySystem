@@ -47,12 +47,12 @@ void doAction(char action) {
             heap->Show();
             break;
         case 'n':
-            cout << " In bytes: ";
+            cout << " In words: ";
             cin >> size;
             newPos = buddySystem->NewMem(size);
             if ( newPos == PSEUDO)
-                cout << "Failed." << endl;
-            else cout << "Succeded at Position " << newPos << endl;
+                cout << "Failed" << endl;
+            else cout << "Succeded at position " << newPos << endl;
             break;
         case 'd':
             cout << " Position: ";
