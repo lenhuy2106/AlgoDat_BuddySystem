@@ -6,7 +6,7 @@
 using namespace std;
 
 Heap::Heap(int m) {
-	this->m = m;
+    this->m = m;
     // extra 2 Einheiten ?
     length = pow(2, m) + 2;
     data = new ATOM[length];
@@ -16,11 +16,11 @@ Heap::Heap(int m) {
 }
 
 int Heap::GetM() {
-	return m;
+    return m;
 }
 
 int Heap::GetLength() {
-	return length;
+    return length;
 }
 
 /*

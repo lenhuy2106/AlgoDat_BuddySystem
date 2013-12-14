@@ -6,29 +6,29 @@ using namespace std;
 
 BuddySystem::BuddySystem(Heap* heap) {
     this->heap = heap;
-	freeLists = new FreeLists(heap);
+    freeLists = new FreeLists(heap);
 }
 
 POSITION BuddySystem::Allocate(POSITION p, int k) {
-	// Get the next lower valid p
-	int blockSize = pow(2, k);
-	p = (p / blockSize) * blockSize;
+    // Get the next lower valid p
+    int blockSize = pow(2, k);
+    p = (p / blockSize) * blockSize;
 
-	int currentSize = SizeOfBlock(p);
+    int currentSize = SizeOfBlock(p);
     int intendedSize = k;
 
-	if (currentSize < intendedSize) {
-		return PSEUDO; // Block is to small
-	}
+    if (currentSize < intendedSize) {
+        return PSEUDO; // Block is to small
+    }
 
     if (currentSize > intendedSize) {
         while (intendedSize != currentSize) {
             // Split block in two equal halfs
-			currentSize--;
+            currentSize--;
             heap->SetReservedBlock(p, currentSize);
 
             // Add new right buddy to the free list
-			int nextBlock = heap->PowToAtoms(currentSize);
+            int nextBlock = heap->PowToAtoms(currentSize);
             freeLists->AddToFree(p + nextBlock, currentSize);
         }
     } else {
@@ -55,7 +55,7 @@ POSITION BuddySystem::NewMem(int size) {
     // -- CheckBlockEnoughSize()
     // lists.FindFitOrGreater()
     for (int tmp = k; tmp <= freeLists->GetSize(); tmp++) {
-		int position = freeLists->GetFromFree(tmp);
+        int position = freeLists->GetFromFree(tmp);
         if (position != PSEUDO) {
             return Allocate(position, k);
         }

@@ -4,8 +4,8 @@
 
 class BuddySystem {
 private:
-	Heap* heap;
-	FreeLists* freeLists;
+    Heap* heap;
+    FreeLists* freeLists;
 public:
     BuddySystem(Heap* heap);
     POSITION Allocate(POSITION p, int k);

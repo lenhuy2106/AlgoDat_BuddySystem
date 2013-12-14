@@ -11,9 +11,9 @@ typedef int ATOM;
 
 class Heap {
 private:
-	int m;
+    int m;
     // in bytes
-	int length;
+    int length;
     int* data;
     int atoms;
 public:
@@ -22,14 +22,14 @@ public:
     int PowToAtoms(int k);
     int GetLength();
     void SetFreeBlock(int pos, int k, int next);
-	void SetReservedBlock(int pos, int k);
+    void SetReservedBlock(int pos, int k);
     void Show();
     inline void SetVal(POSITION p, ATOM val) {
-		data[p] = val;
-	}
+        data[p] = val;
+    }
     inline int GetVal(POSITION p) {
-		return data[p];
-	}
+        return data[p];
+    }
 };
 
 #endif // HEAP_H

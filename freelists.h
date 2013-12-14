@@ -6,13 +6,13 @@
 class FreeLists {
 
 private:
-	Heap* heap;
+    Heap* heap;
     POSITION top;
     int size;
-	// Positions of the first element of the free lists
-	int* lists;
+    // Positions of the first element of the free lists
+    int* lists;
 
-	bool removeFromFreeList(POSITION p, int size);
+    bool removeFromFreeList(POSITION p, int size);
 public:
     FreeLists(Heap* heap);
     inline int GetPos(int k) { return lists[k]; }
