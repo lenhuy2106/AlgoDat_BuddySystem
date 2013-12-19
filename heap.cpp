@@ -15,6 +15,28 @@ Heap::Heap(int m) {
     SetFreeBlock(0, m, PSEUDO);
 }
 
+Heap::Heap(const Heap& ref) {
+    m = ref.m;
+    length = ref.length;
+    data = new int[length];
+    for(int i = 0; i < length; i++)
+        data[i] = ref.data[i];
+}
+
+Heap& Heap::operator=(const Heap& ref) {
+    delete[] data;
+    m = ref.m;
+    length = ref.length;
+    data = new ATOM[length];
+    for(int i = 0; i < length; i++)
+        data[i] = ref.data[i];
+    return *this;
+}
+
+Heap::~Heap() {
+   delete[] data;
+}
+
 int Heap::GetM() {
     return m;
 }

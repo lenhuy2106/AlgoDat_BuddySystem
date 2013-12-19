@@ -15,7 +15,6 @@ private:
     // in bytes
     int length;
     int* data;
-    int atoms;
 public:
     Heap(int m);
     int GetM();
@@ -30,6 +29,9 @@ public:
     inline int GetVal(POSITION p) {
         return data[p];
     }
+    Heap(const Heap& ref);
+    Heap& operator=(const Heap& ref);
+    ~Heap();
 };
 
 #endif // HEAP_H

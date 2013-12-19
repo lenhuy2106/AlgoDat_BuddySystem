@@ -21,6 +21,9 @@ public:
     inline bool EmptyFree () { return (size == 0); }
     void AddToFree (POSITION p, int size);
     POSITION GetFromFree (POSITION k);
+    FreeLists(const FreeLists& ref);
+    FreeLists& operator=(const FreeLists& ref);
+    ~FreeLists();
 };
 
 #endif // FREELISTS_H

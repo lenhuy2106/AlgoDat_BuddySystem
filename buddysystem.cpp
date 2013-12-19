@@ -4,9 +4,31 @@
 
 using namespace std;
 
-BuddySystem::BuddySystem(Heap* heap) {
-    this->heap = heap;
+BuddySystem::BuddySystem(int m) {
+    m = ceil(log(m) / log(2));
+    heap = new Heap(m);
     freeLists = new FreeLists(heap);
+}
+
+
+BuddySystem::BuddySystem(const BuddySystem& ref) {
+    heap = new Heap(ref.heap->GetM());
+    *heap = *ref.heap;
+    freeLists = new FreeLists(heap);
+    *freeLists = *ref.freeLists;
+}
+
+BuddySystem& BuddySystem::operator=(const BuddySystem& ref) {
+    heap = new Heap(ref.heap->GetM());
+    *heap = *ref.heap;
+    freeLists = new FreeLists(heap);
+    *freeLists = *ref.freeLists;
+    return *this;
+}
+
+BuddySystem::~BuddySystem() {
+    delete heap;
+    delete freeLists;
 }
 
 POSITION BuddySystem::Allocate(POSITION p, int k) {
@@ -87,3 +109,7 @@ int BuddySystem::SizeOfBlock(POSITION p) {
 }
 
 FreeLists* BuddySystem::GetFreeLists() { return freeLists; }
+
+void BuddySystem::ShowHeap() {
+    heap->Show();
+}

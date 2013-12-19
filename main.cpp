@@ -1,16 +1,15 @@
 #include "buddysystem.h"
 #include <iostream>
-#define M 6
+#define M 500 // number of words
 
 using namespace std;
 
 void printOptions();
-void doAction(char action);
-
-Heap* heap = new Heap(M);
-BuddySystem* buddySystem = new BuddySystem(heap);
+void doAction(BuddySystem *buddySystem, char action);
 
 int main() {
+    BuddySystem buddySystem(M);
+    BuddySystem buddySystem2 = buddySystem;
 
     cout << "-----------------" << endl;
     cout << "BUDDY - MEMORY" << endl;
@@ -19,7 +18,7 @@ int main() {
         printOptions();
         cout << "-----------------" << endl << "> ";
         cin >> action;
-        doAction(action);
+        doAction(&buddySystem, action);
     } while (action != 'q');
 
     return 0;
@@ -37,14 +36,14 @@ void printOptions() {
     cout << "(q)uit" << endl;
 }
 
-void doAction(char action) {
+void doAction(BuddySystem *buddySystem, char action) {
     int size;
     int position;
     int newPos;
 
     switch (action) {
         case 's':
-            heap->Show();
+            buddySystem->ShowHeap();
             break;
         case 'n':
             cout << " In words: ";

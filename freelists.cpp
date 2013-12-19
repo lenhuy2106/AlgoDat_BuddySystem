@@ -16,6 +16,28 @@ FreeLists::FreeLists(Heap* heap) {
     lists[heap->GetM()] = 0;
 }
 
+FreeLists::FreeLists(const FreeLists& ref) {
+    heap = ref.heap;
+    size = ref.size;
+    lists = new int[size];
+    for(int i = 0; i < size; i++)
+       lists[i] = ref.lists[i];
+    }
+
+FreeLists& FreeLists::operator=(const FreeLists& ref) {
+    delete[] lists;
+    heap = ref.heap;
+    size = ref.size;
+    lists = new ATOM[size];
+    for(int i = 0; i < size; i++)
+        lists[i] = ref.lists[i];
+    return* this;
+}
+
+FreeLists::~FreeLists() {
+    delete[] lists;
+}
+
 void FreeLists::AddToFree(POSITION position, int k) {
     heap->SetFreeBlock(position, k, lists[k]);
     lists[k] = position;
