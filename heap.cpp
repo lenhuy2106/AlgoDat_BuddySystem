@@ -19,17 +19,21 @@ Heap::Heap(const Heap& ref) {
     m = ref.m;
     length = ref.length;
     data = new int[length];
-    for(int i = 0; i < length; i++)
+    for(int i = 0; i < length; i++) {
         data[i] = ref.data[i];
+    }
 }
 
 Heap& Heap::operator=(const Heap& ref) {
-    delete[] data;
-    m = ref.m;
-    length = ref.length;
-    data = new ATOM[length];
-    for(int i = 0; i < length; i++)
-        data[i] = ref.data[i];
+    if (this != &ref) {
+        delete[] data;
+        m = ref.m;
+        length = ref.length;
+        data = new int[length];
+        for(int i = 0; i < length; i++) {
+            data[i] = ref.data[i];
+        }
+    }
     return *this;
 }
 

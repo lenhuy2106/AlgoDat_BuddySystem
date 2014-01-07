@@ -17,7 +17,7 @@ FreeLists::FreeLists(Heap* heap) {
 }
 
 FreeLists::FreeLists(const FreeLists& ref) {
-    heap = ref.heap;
+    heap = new Heap(*ref.heap);
     size = ref.size;
     lists = new int[size];
     for(int i = 0; i < size; i++)
@@ -25,13 +25,18 @@ FreeLists::FreeLists(const FreeLists& ref) {
     }
 
 FreeLists& FreeLists::operator=(const FreeLists& ref) {
-    delete[] lists;
-    heap = ref.heap;
-    size = ref.size;
-    lists = new ATOM[size];
-    for(int i = 0; i < size; i++)
-        lists[i] = ref.lists[i];
-    return* this;
+    if (this != &ref) {
+        delete heap;
+        delete[] lists;
+        heap = new Heap(*ref.heap);
+        size = ref.size;
+        lists = new int[size];
+        for(int i = 0; i < size; i++) {
+            lists[i] = ref.lists[i];
+        }
+    }
+    
+    return *this;
 }
 
 FreeLists::~FreeLists() {

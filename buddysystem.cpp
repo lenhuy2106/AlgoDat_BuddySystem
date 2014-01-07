@@ -12,17 +12,18 @@ BuddySystem::BuddySystem(int m) {
 
 
 BuddySystem::BuddySystem(const BuddySystem& ref) {
-    heap = new Heap(ref.heap->GetM());
-    *heap = *ref.heap;
-    freeLists = new FreeLists(heap);
-    *freeLists = *ref.freeLists;
+    heap = new Heap(*ref.heap);
+    freeLists = new FreeLists(*ref.freeLists);
 }
 
 BuddySystem& BuddySystem::operator=(const BuddySystem& ref) {
-    heap = new Heap(ref.heap->GetM());
-    *heap = *ref.heap;
-    freeLists = new FreeLists(heap);
-    *freeLists = *ref.freeLists;
+    if (this != &ref) {
+        delete heap;
+        delete freeLists;
+        heap = new Heap(*ref.heap);
+        freeLists = new FreeLists(*ref.freeLists);
+    }
+
     return *this;
 }
 

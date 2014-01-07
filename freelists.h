@@ -7,7 +7,6 @@ class FreeLists {
 
 private:
     Heap* heap;
-    POSITION top;
     int size;
     // Positions of the first element of the free lists
     int* lists;

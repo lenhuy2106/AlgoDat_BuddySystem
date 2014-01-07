@@ -29,8 +29,8 @@ public:
     inline int GetVal(POSITION p) {
         return data[p];
     }
-    Heap(const Heap& ref);
-    Heap& operator=(const Heap& ref);
+    Heap(const Heap& other);
+    Heap& operator=(const Heap& rhs);
     ~Heap();
 };
 
