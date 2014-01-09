@@ -4,32 +4,7 @@
 
 using namespace std;
 
-BuddySystem::BuddySystem(int m) {
-    m = ceil(log(m) / log(2));
-    heap = new Heap(m);
-    freeLists = new FreeLists(heap);
-}
-
-
-BuddySystem::BuddySystem(const BuddySystem& ref) {
-    heap = new Heap(*ref.heap);
-    freeLists = new FreeLists(*ref.freeLists);
-}
-
-BuddySystem& BuddySystem::operator=(const BuddySystem& ref) {
-    if (this != &ref) {
-        delete heap;
-        delete freeLists;
-        heap = new Heap(*ref.heap);
-        freeLists = new FreeLists(*ref.freeLists);
-    }
-
-    return *this;
-}
-
-BuddySystem::~BuddySystem() {
-    delete heap;
-    delete freeLists;
+BuddySystem::BuddySystem(int m) : heap(m), freeLists(heap){
 }
 
 POSITION BuddySystem::Allocate(POSITION p, int k) {
@@ -48,14 +23,14 @@ POSITION BuddySystem::Allocate(POSITION p, int k) {
         while (intendedSize != currentSize) {
             // Split block in two equal halfs
             currentSize--;
-            heap->SetReservedBlock(p, currentSize);
+            heap.SetReservedBlock(p, currentSize);
 
             // Add new right buddy to the free list
-            int nextBlock = heap->PowToAtoms(currentSize);
-            freeLists->AddToFree(p + nextBlock, currentSize);
+            int nextBlock = heap.PowToAtoms(currentSize);
+            freeLists.AddToFree(p + nextBlock, currentSize);
         }
     } else {
-        heap->SetReservedBlock(p, k);
+        heap.SetReservedBlock(p, k);
     }
 
     return p;
@@ -77,8 +52,8 @@ POSITION BuddySystem::NewMem(int size) {
     // -- CheckBlockFree()
     // -- CheckBlockEnoughSize()
     // lists.FindFitOrGreater()
-    for (int tmp = k; tmp <= freeLists->GetSize(); tmp++) {
-        int position = freeLists->GetFromFree(tmp);
+    for (int tmp = k; tmp <= freeLists.GetSize(); tmp++) {
+        int position = freeLists.GetFromFree(tmp);
         if (position != PSEUDO) {
             return Allocate(position, k);
         }
@@ -92,11 +67,11 @@ POSITION BuddySystem::NewMem(int size) {
  */
 void BuddySystem::DisposeMem(POSITION p) {
     // ReservedCheck(p)
-    if (heap->GetVal(p) == 0)
+    if (heap.GetVal(p) == 0)
         cout << "Block at position "<< p << " already free." << endl;
 
-    else if (heap->GetVal(p) == 1)
-        freeLists->AddToFree(p, SizeOfBlock(p));
+    else if (heap.GetVal(p) == 1)
+        freeLists.AddToFree(p, SizeOfBlock(p));
 
     else cout << "Block at position "<< p << " not found." <<  endl;
 
@@ -106,11 +81,11 @@ void BuddySystem::DisposeMem(POSITION p) {
  *returns size of a block
  */
 int BuddySystem::SizeOfBlock(POSITION p) {
-    return heap->GetVal(p + 1);
+    return heap.GetVal(p + 1);
 }
 
-FreeLists* BuddySystem::GetFreeLists() { return freeLists; }
+FreeLists& BuddySystem::GetFreeLists() { return freeLists; }
 
 void BuddySystem::ShowHeap() {
-    heap->Show();
+    heap.Show();
 }

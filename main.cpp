@@ -5,11 +5,10 @@
 using namespace std;
 
 void printOptions();
-void doAction(BuddySystem *buddySystem, char action);
+void doAction(BuddySystem &buddySystem, char action);
 
 int main() {
     BuddySystem buddySystem(M);
-    BuddySystem buddySystem2 = buddySystem;
 
     cout << "-----------------" << endl;
     cout << "BUDDY - MEMORY" << endl;
@@ -18,7 +17,7 @@ int main() {
         printOptions();
         cout << "-----------------" << endl << "> ";
         cin >> action;
-        doAction(&buddySystem, action);
+        doAction(buddySystem, action);
     } while (action != 'q');
 
     return 0;
@@ -36,19 +35,19 @@ void printOptions() {
     cout << "(q)uit" << endl;
 }
 
-void doAction(BuddySystem *buddySystem, char action) {
+void doAction(BuddySystem &buddySystem, char action) {
     int size;
     int position;
     int newPos;
 
     switch (action) {
         case 's':
-            buddySystem->ShowHeap();
+            buddySystem.ShowHeap();
             break;
         case 'n':
             cout << " In words: ";
             cin >> size;
-            newPos = buddySystem->NewMem(size);
+            newPos = buddySystem.NewMem(size);
             if ( newPos == PSEUDO)
                 cout << "Failed" << endl;
             else cout << "Succeded at position " << newPos << endl;
@@ -56,10 +55,10 @@ void doAction(BuddySystem *buddySystem, char action) {
         case 'd':
             cout << " Position: ";
             cin >> position;
-                buddySystem->DisposeMem(position);
+                buddySystem.DisposeMem(position);
             break;
         case 'f':
-            buddySystem->GetFreeLists()->ShowLists();
+            buddySystem.GetFreeLists().ShowLists();
             break;
     }
 }

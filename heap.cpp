@@ -6,6 +6,7 @@
 using namespace std;
 
 Heap::Heap(int m) {
+    m = ceil(log(m) / log(2));
     this->m = m;
     // extra 2 Einheiten ?
     length = pow(2, m) + 2;
